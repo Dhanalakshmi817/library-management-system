@@ -1960,9 +1960,11 @@ def logout():
 # START APPLICATION
 # ============================================================
 
-if __name__ == "__main__":
+# Initialize database when the application starts
+init_db()
 
-    init_db()
+
+if __name__ == "__main__":
 
     print("====================================")
     print("Library Management System Started")
