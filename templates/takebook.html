@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Take Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.55)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 650px;
+            background: white;
+
+            border-radius: 18px;
+            overflow: hidden;
+
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .header {
+            background: #fff3cf;
+
+            padding: 25px;
+
+            text-align: center;
+
+            border-bottom: 5px solid #f4b45c;
+        }
+
+        .header h1 {
+            color: #1769aa;
+            font-size: 30px;
+        }
+
+        .book-section {
+            padding: 25px;
+
+            text-align: center;
+
+            background: #f8f9fa;
+        }
+
+        .book-icon {
+            font-size: 65px;
+
+            margin-bottom: 10px;
+        }
+
+        .book-section h2 {
+            color: #243b53;
+
+            margin-bottom: 8px;
+        }
+
+        .book-author {
+            color: #666;
+
+            margin-bottom: 10px;
+        }
+
+        .available {
+            color: #16803c;
+
+            font-weight: bold;
+
+            font-size: 16px;
+        }
+
+        .not-available {
+            color: #e53935;
+
+            font-weight: bold;
+        }
+
+        .form-section {
+            padding: 30px 45px;
+
+            background: #bdf3f7;
+        }
+
+        .form-title {
+            text-align: center;
+
+            font-size: 22px;
+
+            color: #243b53;
+
+            margin-bottom: 25px;
+        }
+
+        .row {
+            margin-bottom: 18px;
+        }
+
+        .row label {
+            display: block;
+
+            font-weight: bold;
+
+            color: #222;
+
+            margin-bottom: 7px;
+        }
+
+        .row input {
+            width: 100%;
+
+            height: 40px;
+
+            border: 1px solid #999;
+
+            border-radius: 5px;
+
+            padding: 8px 10px;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+        .row input:focus {
+            outline: none;
+
+            border: 2px solid #2196f3;
+        }
+
+        .info-box {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            background: #e8f5e9;
+
+            border: 1px solid #81c784;
+
+            border-radius: 6px;
+
+            color: #1b5e20;
+
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 20px;
+
+            margin-top: 25px;
+        }
+
+        .take-btn,
+        .cancel-btn {
+            padding: 12px 28px;
+
+            border-radius: 5px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            text-decoration: none;
+        }
+
+        .take-btn {
+            background: #008fa3;
+
+            color: white;
+
+            border: 2px solid #006f7d;
+        }
+
+        .take-btn:hover {
+            background: #006f7d;
+        }
+
+        .cancel-btn {
+            background: #e74c3c;
+
+            color: white;
+
+            border: 2px solid #c0392b;
+        }
+
+        .cancel-btn:hover {
+            background: #c0392b;
+        }
+
+        .note {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #e53935;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            .form-section {
+                padding: 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .take-btn,
+            .cancel-btn {
+                text-align: center;
+            }
+        }
+
+
+.alert {
+    margin: 15px 30px;
+    padding: 14px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alert.error {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef5350;
+}
+
+.alert.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #66bb6a;
+}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>
+                📚 Take Book
+            </h1>
+
+        </div>
+
+
+        <!-- BOOK DETAILS -->
+
+        <div class="book-section">
+
+            <div class="book-icon">
+                📖
+            </div>
+
+            <h2>
+                {{ book['title'] }}
+            </h2>
+
+            <div class="book-author">
+                Author: {{ book['author'] }}
+            </div>
+
+            {% if book['category'] %}
+
+            <div class="book-author">
+                Category: {{ book['category'] }}
+            </div>
+
+            {% endif %}
+
+            {% if book['quantity'] > 0 %}
+
+            <div class="available">
+                Available Books: {{ book['quantity'] }}
+            </div>
+
+            {% else %}
+
+            <div class="not-available">
+                NOT AVAILABLE
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- STUDENT FORM -->
+
+        <div class="form-section">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="form-title">
+                Enter Student Details
+            </div>
+
+            <form method="POST">
+
+                <div class="row">
+
+                    <label>
+                        Student Enrollment Number
+                    </label>
+
+                    <input type="text" name="enrollment" placeholder="Enter enrollment number" autocomplete="off"
+                        required>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    Student must already be registered
+                    in the Student section.
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <button type="submit" class="take-btn">
+                        TAKE BOOK
+                    </button>
+
+                    <a href="/explorebooks" class="cancel-btn">
+                        CANCEL
+                    </a>
+
+                </div>
+
+
+                <div class="note">
+
+                    Maximum 3 books can be issued
+                    to one student.
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

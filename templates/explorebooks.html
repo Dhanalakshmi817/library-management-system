@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Explore Books</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.80),
+                    rgba(255, 255, 255, 0.80)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            width: 100%;
+            min-height: 75px;
+
+            background: #fff3cf;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 10px;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.30);
+
+            overflow-x: auto;
+        }
+
+        .menu {
+            height: 75px;
+
+            display: flex;
+            align-items: center;
+
+            flex-shrink: 0;
+        }
+
+        .menu a {
+            height: 75px;
+
+            padding: 0 18px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            text-decoration: none;
+
+            color: #222;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+        .menu a:hover {
+            background: #eadfbf;
+        }
+
+        .icon {
+            font-size: 27px;
+        }
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+            width: 94%;
+            max-width: 1200px;
+
+            margin: 30px auto 60px;
+
+            padding: 30px;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.30);
+        }
+
+        /* ================= HEADING ================= */
+
+        .heading {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            color: #24405d;
+
+            font-size: 35px;
+
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search {
+            width: 100%;
+            max-width: 700px;
+
+            margin: 0 auto 22px;
+        }
+
+        .search input {
+            width: 100%;
+
+            height: 50px;
+
+            padding: 0 20px;
+
+            border: 1px solid #bbb;
+
+            border-radius: 28px;
+
+            font-size: 16px;
+
+            outline: none;
+
+            background: white;
+        }
+
+        .search input:focus {
+            border-color: #3498db;
+
+            box-shadow:
+                0 0 5px rgba(52, 152, 219, 0.30);
+        }
+
+        /* ================= CATEGORY BUTTONS ================= */
+
+        .categories {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .categories button {
+            border: none;
+
+            padding: 11px 20px;
+
+            margin: 5px;
+
+            border-radius: 25px;
+
+            background: #e8edf5;
+
+            color: #24405d;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .categories button:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .categories button.active {
+            background: #3498db;
+            color: white;
+        }
+
+        /* ================= BOOK GRID ================= */
+
+        .book-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 25px;
+        }
+
+        /* ================= BOOK CARD ================= */
+
+        .book-card {
+            width: 100%;
+
+            min-height: 330px;
+
+            background: white;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.16);
+
+            transition: 0.25s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 8px 22px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ================= BOOK IMAGE ================= */
+
+        .book-card img {
+            width: 160px;
+
+            height: 330px;
+
+            object-fit: cover;
+
+            flex-shrink: 0;
+
+            display: block;
+
+            background: #eeeeee;
+        }
+
+        /* ================= BOOK INFORMATION ================= */
+
+        .book-info {
+            padding: 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+        .book-info h2 {
+            color: #24405d;
+
+            font-size: 21px;
+
+            line-height: 1.3;
+
+            margin-bottom: 12px;
+        }
+
+        .author {
+            color: #555;
+
+            font-size: 14px;
+
+            margin-bottom: 9px;
+
+            line-height: 1.4;
+        }
+
+        .date {
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 13px;
+        }
+
+        .category {
+            width: fit-content;
+
+            padding: 6px 12px;
+
+            border-radius: 15px;
+
+            background: #e8f4ff;
+
+            color: #2980b9;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 14px;
+        }
+
+        /* ================= AVAILABILITY ================= */
+
+        .availability {
+            font-size: 16px;
+
+            font-weight: bold;
+
+            color: #333;
+
+            margin-bottom: 12px;
+        }
+
+        .availability span {
+            color: #1687d9;
+
+            font-size: 18px;
+        }
+
+        /* ================= TAKE BUTTON ================= */
+
+        .take-btn {
+            display: inline-block;
+
+            width: fit-content;
+
+            margin-top: 5px;
+
+            padding: 10px 22px;
+
+            background: #008fa3;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            border: 2px solid #006f7d;
+        }
+
+        .take-btn:hover {
+            background: #006f7d;
+        }
+
+        /* ================= AVAILABLE ================= */
+
+        .available {
+            margin-top: 8px;
+
+            color: #16803c;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        /* ================= NOT AVAILABLE ================= */
+
+        .not-available-btn {
+            width: fit-content;
+
+            margin-top: 5px;
+
+            padding: 10px 22px;
+
+            background: #e53935;
+
+            color: white;
+
+            border: 2px solid #c62828;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: not-allowed;
+        }
+
+        /* ================= TAKEN BY ================= */
+
+        .taken-by {
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            background: #fff8e1;
+
+            border-left: 5px solid #ff9800;
+
+            border-radius: 6px;
+
+            text-align: left;
+        }
+
+        .taken-title {
+            color: #e65100;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .borrower {
+            padding: 8px 0;
+
+            border-bottom: 1px solid #ddd;
+        }
+
+        .borrower:last-child {
+            border-bottom: none;
+        }
+
+        .borrower-name {
+            color: #222;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+        .borrower-enrollment {
+            margin-top: 3px;
+
+            color: #666;
+
+            font-size: 13px;
+        }
+
+        /* ================= NO BOOKS ================= */
+
+        .no-books {
+            width: 100%;
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #666;
+
+            font-size: 18px;
+        }
+
+        /* ================= BACK BUTTON ================= */
+
+        .back {
+            display: block;
+
+            width: fit-content;
+
+            margin: 30px auto 0;
+
+            padding: 12px 22px;
+
+            background: #e67e22;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+        .back:hover {
+            background: #ca6f1e;
+        }
+
+        /* ================= TABLET ================= */
+
+        @media(max-width: 900px) {
+
+            .book-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .book-card {
+                max-width: 700px;
+
+                margin: auto;
+            }
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 600px) {
+
+            .container {
+                width: 95%;
+
+                padding: 18px;
+
+                margin-top: 20px;
+            }
+
+            .heading h1 {
+                font-size: 28px;
+            }
+
+            .heading p {
+                font-size: 14px;
+            }
+
+            .categories button {
+                padding: 9px 14px;
+
+                font-size: 12px;
+            }
+
+            .book-grid {
+                grid-template-columns: 1fr;
+
+                gap: 18px;
+            }
+
+            .book-card {
+                min-height: 270px;
+            }
+
+            .book-card img {
+                width: 130px;
+
+                height: 270px;
+            }
+
+            .book-info {
+                padding: 15px;
+            }
+
+            .book-info h2 {
+                font-size: 18px;
+            }
+
+            .author {
+                font-size: 13px;
+            }
+
+            .date {
+                font-size: 12px;
+            }
+
+            .take-btn,
+            .not-available-btn {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <div class="navbar">
+
+        <div class="menu">
+            <a href="/dashboard">
+                <span class="icon">📚</span>
+                <span>Books</span>
+            </a>
+        </div>
+
+        <div class="menu">
+            <a href="/students">
+                <span class="icon">👨‍🎓</span>
+                <span>Student</span>
+            </a>
+        </div>
+
+        <div class="menu">
+            <a href="/issuebook">
+                <span class="icon">📖</span>
+                <span>Issue Books</span>
+            </a>
+        </div>
+
+        <div class="menu">
+            <a href="/returnbook">
+                <span class="icon">📕</span>
+                <span>Return Books</span>
+            </a>
+        </div>
+
+        <div class="menu">
+            <a href="/details">
+                <span class="icon">📚</span>
+                <span>Complete Book Detail</span>
+            </a>
+        </div>
+
+        <div class="menu">
+            <a href="/explorebooks">
+                <span class="icon">🔎</span>
+                <span>Explore Books</span>
+            </a>
+        </div>
+
+        <div class="menu">
+            <a href="/logout">
+                <span class="icon">🚪</span>
+                <span>Exit</span>
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="container">
+
+        <div class="heading">
+
+            <h1>📚 Explore Books</h1>
+
+            <p>
+                Discover new stories, ideas and knowledge
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search">
+
+            <input type="text" id="searchInput" placeholder="Search by book name or author..." onkeyup="searchBooks()">
+
+        </div>
+
+
+        <!-- CATEGORIES -->
+
+        <div class="categories">
+
+            <button class="active" onclick="filterBooks('All', this)">
+                ALL
+            </button>
+
+            <button onclick="filterBooks('Story', this)">
+                STORY
+            </button>
+
+            <button onclick="filterBooks('Motivational', this)">
+                MOTIVATIONAL
+            </button>
+
+            <button onclick="filterBooks('Educational', this)">
+                EDUCATIONAL
+            </button>
+
+            <button onclick="filterBooks('Science', this)">
+                SCIENCE
+            </button>
+
+            <button onclick="filterBooks('Novels', this)">
+                NOVELS
+            </button>
+
+        </div>
+
+
+        <!-- ================= BOOK GRID ================= -->
+
+        <div class="book-grid" id="bookGrid">
+
+            {% for book in books %}
+
+            <div class="book-card" data-category="{{ book['category'] }}"
+                data-search="{{ book['name'] }} {{ book['author'] }}">
+
+                <img src="{{ book['image'] }}" alt="{{ book['name'] }}"
+                    onerror="this.src='https://via.placeholder.com/300x400?text=Book+Image'">
+
+
+                <div class="book-info">
+
+                    <h2>
+                        {{ book['name'] }}
+                    </h2>
+
+
+                    <p class="author">
+                        ✍️ {{ book['author'] }}
+                    </p>
+
+
+                    <p class="date">
+                        📅 Published: {{ book['date'] }}
+                    </p>
+
+
+                    <span class="category">
+                        {{ book['category'] }}
+                    </span>
+
+
+                    <!-- AVAILABILITY -->
+
+                    {% if book['quantity'] > 0 %}
+
+                    <a href="{{ url_for('take_book', book_id=book['id']) }}" class="take-btn">
+                        TAKE BOOK
+                    </a>
+
+                    <div class="available">
+                        Available: {{ book['quantity'] }}
+                    </div>
+
+                    {% else %}
+
+                    <button type="button" class="not-available-btn" disabled>
+                        NOT AVAILABLE
+                    </button>
+
+                    {% endif %}
+
+
+                    <!-- TAKEN BY STUDENTS -->
+
+                    {% if book['borrowers'] %}
+
+                    <div class="taken-by">
+
+                        <div class="taken-title">
+                            📌 Taken By
+                        </div>
+
+
+                        {% for borrower in book['borrowers'] %}
+
+                        <div class="borrower">
+
+                            <div class="borrower-name">
+                                👤 {{ borrower['name'] }}
+                            </div>
+
+                            <div class="borrower-enrollment">
+                                Enrollment:
+                                {{ borrower['enrollment'] or '-' }}
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- NO BOOKS -->
+
+        {% if not books %}
+
+        <div class="no-books">
+            No books available.
+        </div>
+
+        {% endif %}
+
+
+        <!-- BACK BUTTON -->
+
+        <a href="/dashboard" class="back">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        function filterBooks(category, button) {
+
+            document
+                .querySelectorAll(".categories button")
+                .forEach(function (btn) {
+
+                    btn.classList.remove("active");
+
+                });
+
+
+            button.classList.add("active");
+
+
+            document
+                .querySelectorAll(".book-card")
+                .forEach(function (card) {
+
+                    if (
+                        category === "All" ||
+                        card.dataset.category === category
+                    ) {
+
+                        card.style.display = "flex";
+
+                    } else {
+
+                        card.style.display = "none";
+
+                    }
+
+                });
+
+        }
+
+
+        function searchBooks() {
+
+            let searchText =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .toLowerCase();
+
+
+            document
+                .querySelectorAll(".book-card")
+                .forEach(function (card) {
+
+                    let bookText =
+                        card.dataset.search.toLowerCase();
+
+
+                    if (
+                        bookText.includes(searchText)
+                    ) {
+
+                        card.style.display = "flex";
+
+                    } else {
+
+                        card.style.display = "none";
+
+                    }
+
+                });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

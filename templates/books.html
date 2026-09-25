@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Books Management</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.75),
+                    rgba(255, 255, 255, 0.75)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            padding: 30px;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #fff4dc;
+
+            padding: 15px 25px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 30px;
+        }
+
+        .navbar h2 {
+            color: #555;
+        }
+
+        .close-btn {
+            background: #e74c3c;
+
+            color: white;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            text-decoration: none;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 95%;
+
+            max-width: 1280px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* HEADING */
+
+        h1 {
+            text-align: center;
+
+            color: #294866;
+
+            margin-bottom: 30px;
+
+            font-size: 38px;
+        }
+
+
+        /* TOP SECTION */
+
+        .top-section {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 28px;
+
+            gap: 20px;
+        }
+
+
+        /* ADD BUTTON */
+
+        .add-btn {
+            background: #27ae60;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 14px 22px;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #219150;
+        }
+
+
+        /* SEARCH */
+
+        .search-form {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .search-input {
+            width: 320px;
+
+            padding: 13px 16px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #3498db;
+        }
+
+        .search-btn {
+            background: #3498db;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px 22px;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background: #2980b9;
+        }
+
+
+        /* TABLE */
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            overflow: hidden;
+        }
+
+        th {
+            background: #294866;
+
+            color: white;
+
+            padding: 15px 12px;
+
+            text-align: center;
+
+            font-size: 15px;
+        }
+
+        td {
+            padding: 14px 12px;
+
+            border-bottom: 1px solid #ddd;
+
+            text-align: center;
+
+            color: #222;
+
+            font-size: 15px;
+        }
+
+        tr:hover {
+            background: #f7f7f7;
+        }
+
+
+        /* ACTION BUTTONS */
+
+        .edit-btn {
+            display: inline-block;
+
+            background: #f39c12;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 16px;
+
+            border-radius: 6px;
+
+            margin-right: 6px;
+
+            font-size: 14px;
+        }
+
+        .edit-btn:hover {
+            background: #d68910;
+        }
+
+        .delete-btn {
+            display: inline-block;
+
+            background: #e74c3c;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 16px;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+
+        /* QUANTITY */
+
+        .quantity {
+            font-weight: bold;
+
+            color: #27ae60;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+            text-align: center;
+
+            padding: 40px;
+
+            color: #777;
+
+            font-size: 18px;
+        }
+
+
+        /* COUNT */
+
+        .count {
+            margin-top: 20px;
+
+            color: #666;
+
+            font-size: 15px;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .top-section {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .search-form {
+                width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 850px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <h2>📚 Library Management System</h2>
+
+        <a href="/dashboard" class="close-btn" title="Back to Dashboard">
+            ×
+        </a>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+
+        <h1>📚 Books Management</h1>
+
+
+        <!-- TOP SECTION -->
+
+        <div class="top-section">
+
+
+            <!-- ADD BOOK -->
+
+            <a href="/addbook" class="add-btn">
+                ＋ Add New Book
+            </a>
+
+
+            <!-- SEARCH -->
+
+            <form method="GET" action="/books" class="search-form">
+
+                <input type="text" name="search" class="search-input" value="{{ search or '' }}"
+                    placeholder="Search by title, author or category">
+
+                <button type="submit" class="search-btn">
+                    🔍 Search
+                </button>
+
+            </form>
+
+
+        </div>
+
+
+        <!-- BOOK TABLE -->
+
+        {% if books %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Title</th>
+
+                    <th>Author</th>
+
+                    <th>Category</th>
+
+                    <th>Quantity</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for book in books %}
+
+                <tr>
+
+                    <td>
+                        {{ book['id'] }}
+                    </td>
+
+
+                    <td>
+                        {{ book['title'] }}
+                    </td>
+
+
+                    <td>
+                        {{ book['author'] }}
+                    </td>
+
+
+                    <td>
+                        {{ book['category'] or 'N/A' }}
+                    </td>
+
+
+                    <td class="quantity">
+                        {{ book['quantity'] }}
+                    </td>
+
+
+                    <td>
+
+                        <a href="/editbook/{{ book['id'] }}" class="edit-btn">
+                            ✎ Edit
+                        </a>
+
+
+                        <a href="/deletebook/{{ book['id'] }}" class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this book?');">
+                            🗑 Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        <div class="count">
+
+            Showing {{ books|length }} books
+
+        </div>
+
+
+        {% else %}
+
+        <div class="empty">
+
+            📚 No books found.
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+</body>
+
+</html>

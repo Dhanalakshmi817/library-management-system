@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 820px;
+            background: white;
+            padding: 35px 45px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #555;
+            font-size: 30px;
+        }
+
+        .student-image {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+        }
+
+        form {
+            background: #dffcff;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button,
+        .cancel-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .refresh-btn {
+            background: #777;
+            color: white;
+        }
+
+        .update-btn {
+            background: #2196f3;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        button:hover,
+        .cancel-btn:hover {
+            opacity: 0.9;
+        }
+
+        .cancel-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Edit Student Information</h1>
+
+            <img src="{{ url_for('static', filename='images/girl.png') }}" class="student-image" alt="Student">
+        </div>
+
+        <form method="POST" action="/editstudent/{{ student['id'] }}">
+
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" name="name" value="{{ student['name'] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Enrollment No</label>
+                <input type="text" name="enrollment" value="{{ student['enrollment'] or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" name="department" value="{{ student['department'] or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Student Semester</label>
+                <input type="text" name="semester" value="{{ student['semester'] or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Student Contact</label>
+                <input type="text" name="phone" value="{{ student['phone'] or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Student Email</label>
+                <input type="email" name="email" value="{{ student['email'] or '' }}" required>
+            </div>
+
+            <div class="buttons">
+
+                <button type="button" class="refresh-btn" onclick="window.location.reload()">
+                    Refresh
+                </button>
+
+                <button type="submit" class="update-btn">
+                    Update Info
+                </button>
+
+                <a href="/students" class="cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+
+            <div class="buttons"><button type="button" class="refresh-btn" onclick="window.location.reload()">Refresh
+                </button><button type="submit" class="update-btn">Update Info </button><a href="/students"
+                    class="cancel-btn">Cancel </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

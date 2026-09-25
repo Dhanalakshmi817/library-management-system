@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Student</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.35)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            min-height: 100vh;
+        }
+
+        /* CARD */
+
+        .card {
+            width: 820px;
+            margin: 60px auto;
+            background: white;
+            box-shadow: 0 5px 25px black;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* CLOSE BUTTON */
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+
+            width: 38px;
+            height: 38px;
+
+            background: #e74c3c;
+            color: white;
+
+            border-radius: 50%;
+
+            text-align: center;
+            line-height: 38px;
+
+            text-decoration: none;
+
+            font-size: 25px;
+            font-weight: bold;
+
+            z-index: 10;
+        }
+
+        .close:hover {
+            background: #c0392b;
+        }
+
+        /* TITLE */
+
+        .title {
+            height: 100px;
+            background: #e8e8e8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 20px;
+        }
+
+        .title-icon {
+            font-size: 55px;
+        }
+
+        .title h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #243b53;
+        }
+
+        /* MAIN AREA */
+
+        .main {
+            display: flex;
+            min-height: 420px;
+        }
+
+        /* GIRL IMAGE */
+
+        .girl {
+            width: 40%;
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .girl img {
+            width: 100%;
+            height: 420px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        /* FORM */
+
+        .form {
+            width: 60%;
+            background: #b8f3fa;
+
+            padding: 30px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+        .row label {
+            width: 190px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            color: #234;
+        }
+
+        .row input {
+            width: 220px;
+            height: 32px;
+
+            border: 1px solid #999;
+            border-radius: 4px;
+
+            padding: 5px 8px;
+
+            font-size: 14px;
+        }
+
+        .row input:focus {
+            outline: none;
+            border: 2px solid #168c9c;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 9px 18px;
+
+            margin: 5px;
+
+            background: #dffafa;
+
+            border: 1px solid #168c9c;
+            border-radius: 5px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #8ee8ef;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .card {
+                width: 95%;
+            }
+
+            .main {
+                flex-direction: column;
+            }
+
+            .girl,
+            .form {
+                width: 100%;
+            }
+
+            .girl img {
+                height: 300px;
+            }
+
+            .row label {
+                width: 160px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <!-- CLOSE -->
+
+        <a href="/dashboard" class="close">×</a>
+
+
+        <!-- TITLE -->
+
+        <div class="title">
+
+            <div class="title-icon">
+                👩‍🎓
+            </div>
+
+            <h1>Add Student</h1>
+
+        </div>
+
+        <!-- MAIN -->
+
+        <div class="main">
+
+
+            <!-- GIRL IMAGE -->
+
+            <div class="girl">
+
+                <img src="{{ url_for('static', filename='images/girl.png') }}" alt="Student Image">
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <div class="form">
+
+                <form method="POST" action="/addstudent">
+
+
+                    <!-- 1. STUDENT NAME -->
+
+                    <div class="row">
+
+                        <label>Student Name</label>
+
+                        <input type="text" name="name" placeholder="Enter student name" required>
+
+                    </div>
+
+
+                    <!-- 2. ENROLLMENT -->
+
+                    <div class="row">
+
+                        <label>Enrollment No</label>
+
+                        <input type="text" name="enrollment" placeholder="Enter enrollment no">
+
+                    </div>
+
+
+                    <!-- 3. DEPARTMENT -->
+
+                    <div class="row">
+
+                        <label>Department</label>
+
+                        <input type="text" name="department" placeholder="Enter department">
+
+                    </div>
+
+
+                    <!-- 4. SEMESTER -->
+
+                    <div class="row">
+
+                        <label>Student Semester</label>
+
+                        <input type="text" name="semester" placeholder="Enter semester">
+
+                    </div>
+
+
+                    <!-- 5. CONTACT -->
+
+                    <div class="row">
+
+                        <label>Student Contact</label>
+
+                        <input type="text" name="phone" placeholder="Enter contact number">
+
+                    </div>
+
+
+                    <!-- 6. EMAIL -->
+
+                    <div class="row">
+
+                        <label>Student Email</label>
+
+                        <input type="email" name="email" placeholder="Enter email">
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="buttons">
+
+                        <button type="reset">
+                            Refresh
+                        </button>
+
+                        <button type="submit">
+                            Save Info
+                        </button>
+
+                        <button type="button" onclick="window.location.href='/dashboard'">
+                            Exit
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>

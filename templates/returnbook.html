@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Return Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.70)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            padding: 30px;
+        }
+
+        .navbar {
+            background: #fff4dc;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .navbar h2 {
+            color: #555;
+        }
+
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #dffcff;
+            padding: 14px;
+            border: 1px solid #ccc;
+        }
+
+        td {
+            padding: 13px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .return-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .return-btn:hover {
+            background: #219150;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>📚 Library Management System</h2>
+
+        <a href="/dashboard" class="back-btn">×</a>
+    </div>
+
+    <div class="container">
+
+        <h1>↩ Return Books</h1>
+
+        {% if issues %}
+
+        <table>
+
+            <tr>
+                <th>Issue ID</th>
+                <th>Book Name</th>
+                <th>Student Name</th>
+                <th>Issue Date</th>
+                <th>Action</th>
+            </tr>
+
+            {% for issue in issues %}
+
+            <tr>
+                <td>{{ issue['id'] }}</td>
+
+                <td>{{ issue['title'] }}</td>
+
+                <td>{{ issue['student_name'] }}</td>
+
+                <td>{{ issue['issue_date'] }}</td>
+
+                <td>
+                    <form method="POST" onsubmit="return confirm('Are you sure to return this book?');">
+
+                        <input type="hidden" name="issue_id" value="{{ issue['id'] }}">
+
+                        <button type="submit" class="return-btn">
+                            return
+                        </button>
+
+                    </form>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+            No issued books available.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

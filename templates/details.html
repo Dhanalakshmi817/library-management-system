@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Complete Book Detail</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.55)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            padding-bottom: 50px;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 75px;
+
+            background: #fff3cf;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 25px;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar a {
+            text-decoration: none;
+
+            color: #222;
+
+            font-weight: bold;
+
+            font-size: 17px;
+
+            padding: 20px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .navbar a:hover {
+            background: #eadfbf;
+        }
+
+        .icon {
+            font-size: 32px;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 88%;
+            max-width: 1100px;
+
+            margin: 55px auto 50px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.55);
+
+            position: relative;
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        h1 {
+            text-align: center;
+
+            color: #243b53;
+
+            font-size: 36px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =========================
+           CLOSE BUTTON
+        ========================= */
+
+        .close-btn {
+            position: absolute;
+
+            top: 16px;
+            right: 20px;
+
+            width: 42px;
+            height: 42px;
+
+            background: #e74c3c;
+
+            color: white;
+
+            border-radius: 50%;
+
+            text-decoration: none;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 25px;
+        }
+
+        .card {
+            padding: 30px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.20);
+        }
+
+        .card-icon {
+            font-size: 55px;
+
+            margin-bottom: 12px;
+        }
+
+        .card h2 {
+            color: #444;
+
+            font-size: 21px;
+
+            margin-bottom: 12px;
+        }
+
+        .count {
+            font-size: 48px;
+
+            font-weight: bold;
+
+            color: #2196f3;
+        }
+
+        .label {
+            color: #777;
+
+            margin-top: 8px;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           CARD COLORS
+        ========================= */
+
+        .issued {
+            background: linear-gradient(135deg,
+                    #fff3cd,
+                    #ffe082);
+
+            border-top: 7px solid #ff9800;
+        }
+
+        .returned {
+            background: linear-gradient(135deg,
+                    #d4edda,
+                    #a5d6a7);
+
+            border-top: 7px solid #28a745;
+        }
+
+        .books {
+            background: linear-gradient(135deg,
+                    #e1bee7,
+                    #ce93d8);
+
+            border-top: 7px solid #9c27b0;
+        }
+
+        .students {
+            background: linear-gradient(135deg,
+                    #b2ebf2,
+                    #80deea);
+
+            border-top: 7px solid #00acc1;
+        }
+
+
+        /* =========================
+           STUDENT BOOK DETAILS
+        ========================= */
+
+        .student-section {
+
+            margin-top: 45px;
+
+            padding-top: 35px;
+
+            border-top: 4px solid #f4b45c;
+        }
+
+        .student-section>h2 {
+
+            text-align: center;
+
+            color: #1769aa;
+
+            font-size: 28px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           STUDENT SEARCH
+        ========================= */
+
+        .student-search {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+        }
+
+        .student-search input {
+
+            width: 330px;
+
+            height: 45px;
+
+            padding: 10px 14px;
+
+            border: 1px solid #999;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+        .student-search input:focus {
+
+            outline: none;
+
+            border: 2px solid #2196f3;
+        }
+
+        .student-search button {
+
+            height: 45px;
+
+            padding: 0 25px;
+
+            background: #1769aa;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .student-search button:hover {
+
+            background: #0d4f82;
+        }
+
+
+        /* =========================
+           NOT FOUND
+        ========================= */
+
+        .student-not-found {
+
+            padding: 15px;
+
+            margin: 20px 0;
+
+            background: #ffe0e0;
+
+            color: #c0392b;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           STUDENT CARD
+        ========================= */
+
+        .student-card {
+
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            background: white;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .student-card-header {
+
+            background: #bdf3f7;
+
+            padding: 17px 20px;
+
+            border-bottom: 4px solid #00a9bd;
+        }
+
+        .student-card-header h3 {
+
+            margin: 0;
+
+            color: #1769aa;
+
+            font-size: 21px;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           STUDENT INFORMATION
+        ========================= */
+
+        .student-info {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+
+            padding: 22px;
+        }
+
+        .info-box {
+
+            background: #f5f5f5;
+
+            padding: 14px;
+
+            border-radius: 7px;
+
+            border-left: 4px solid #1769aa;
+        }
+
+        .info-box span {
+
+            display: block;
+
+            color: #666;
+
+            font-size: 13px;
+
+            margin-bottom: 6px;
+        }
+
+        .info-box strong {
+
+            color: #222;
+
+            font-size: 16px;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================
+           BOOK COUNT
+        ========================= */
+
+        .student-book-count {
+
+            margin: 0 22px 22px;
+
+            padding: 18px;
+
+            background: #fff0bd;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            border: 1px solid #f4b45c;
+        }
+
+        .student-book-count span {
+
+            font-size: 17px;
+
+            color: #555;
+
+            margin-right: 12px;
+        }
+
+        .student-book-count strong {
+
+            color: #e67e22;
+
+            font-size: 32px;
+        }
+
+        .student-book-count small {
+
+            font-size: 18px;
+
+            color: #777;
+        }
+
+
+        /* =========================
+           BOOKS HEADING
+        ========================= */
+
+        .books-heading {
+
+            padding: 0 22px 15px;
+
+            color: #1769aa;
+
+            font-size: 20px;
+        }
+
+
+        /* =========================
+           BOOK TABLE
+        ========================= */
+
+        .student-books-table {
+
+            padding: 0 22px 25px;
+
+            overflow-x: auto;
+        }
+
+        .student-books-table table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            background: white;
+        }
+
+        .student-books-table th {
+
+            background: #1769aa;
+
+            color: white;
+
+            padding: 13px;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+        .student-books-table td {
+
+            padding: 13px;
+
+            border-bottom: 1px solid #ddd;
+
+            color: #333;
+
+            font-size: 14px;
+        }
+
+        .student-books-table tr:hover {
+
+            background: #f5f5f5;
+        }
+
+
+        /* =========================
+           NO BOOKS
+        ========================= */
+
+        .no-books {
+
+            margin: 20px;
+
+            padding: 15px;
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            text-align: center;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: auto;
+
+                padding: 5px 10px;
+
+                flex-wrap: wrap;
+            }
+
+            .navbar a {
+                padding: 12px 8px;
+
+                font-size: 13px;
+            }
+
+            .icon {
+                font-size: 23px;
+            }
+
+            .container {
+
+                width: 94%;
+
+                margin: 25px auto;
+
+                padding: 25px 18px;
+            }
+
+            h1 {
+
+                font-size: 28px;
+
+                margin-bottom: 25px;
+            }
+
+            .close-btn {
+
+                width: 36px;
+                height: 36px;
+
+                font-size: 24px;
+
+                top: 12px;
+                right: 12px;
+            }
+
+            .cards {
+
+                grid-template-columns: 1fr;
+            }
+
+            .student-search {
+
+                flex-direction: column;
+
+                width: 100%;
+            }
+
+            .student-search input {
+
+                width: 100%;
+            }
+
+            .student-search button {
+
+                width: 100%;
+            }
+
+            .student-info {
+
+                grid-template-columns: 1fr;
+            }
+
+            .student-book-count span {
+
+                display: block;
+
+                margin-bottom: 8px;
+            }
+
+            .student-books-table {
+
+                padding-left: 10px;
+
+                padding-right: 10px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <a href="/dashboard">
+            <span class="icon">🏠</span>
+            Dashboard
+        </a>
+
+        <a href="/details">
+            <span class="icon">📚</span>
+            Complete Book Detail
+        </a>
+
+    </div>
+
+
+    <!-- MAIN CONTAINER -->
+
+    <div class="container">
+
+
+        <!-- CLOSE BUTTON -->
+
+        <a href="/dashboard" class="close-btn" title="Back to Dashboard">
+            ×
+        </a>
+
+
+        <!-- TITLE -->
+
+        <h1>
+            📊 Complete Book Detail
+        </h1>
+
+
+        <!-- FOUR STAT CARDS -->
+
+        <div class="cards">
+
+
+            <!-- ISSUED BOOKS -->
+
+            <div class="card issued">
+
+                <div class="card-icon">
+                    📖
+                </div>
+
+                <h2>
+                    Issued Books
+                </h2>
+
+                <div class="count">
+                    {{ issued_books }}
+                </div>
+
+                <div class="label">
+                    Currently Issued
+                </div>
+
+            </div>
+
+
+            <!-- RETURNED BOOKS -->
+
+            <div class="card returned">
+
+                <div class="card-icon">
+                    📕
+                </div>
+
+                <h2>
+                    Returned Books
+                </h2>
+
+                <div class="count">
+                    {{ returned_books }}
+                </div>
+
+                <div class="label">
+                    Total Returned
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL BOOKS -->
+
+            <div class="card books">
+
+                <div class="card-icon">
+                    📚
+                </div>
+
+                <h2>
+                    Total Books
+                </h2>
+
+                <div class="count">
+                    {{ total_books }}
+                </div>
+
+                <div class="label">
+                    Books in Library
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL STUDENTS -->
+
+            <div class="card students">
+
+                <div class="card-icon">
+                    👨‍🎓
+                </div>
+
+                <h2>
+                    Total Students
+                </h2>
+
+                <div class="count">
+                    {{ total_students }}
+                </div>
+
+                <div class="label">
+                    Registered Students
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- STUDENT BOOK DETAILS -->
+
+        <div class="student-section">
+
+
+            <h2>
+                👨‍🎓 Student Book Details
+            </h2>
+
+
+            <!-- SEARCH STUDENT -->
+
+            <form method="GET" action="/details" class="student-search">
+
+                <input type="text" name="enrollment" value="{{ enrollment or '' }}"
+                    placeholder="Enter Enrollment Number" autocomplete="off" required>
+
+                <button type="submit">
+                    Search Student
+                </button>
+
+            </form>
+
+
+            <!-- STUDENT NOT FOUND -->
+
+            {% if enrollment and not student %}
+
+            <div class="student-not-found">
+
+                Student not found!
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- STUDENT FOUND -->
+
+            {% if student %}
+
+            <div class="student-card">
+
+
+                <!-- STUDENT CARD HEADER -->
+
+                <div class="student-card-header">
+
+                    <h3>
+                        👤 Student Details
+                    </h3>
+
+                </div>
+
+
+                <!-- FULL STUDENT INFORMATION -->
+
+                <div class="student-info">
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Student Name
+                        </span>
+
+                        <strong>
+                            {{ student['name'] }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Enrollment No
+                        </span>
+
+                        <strong>
+                            {{ student['enrollment'] or '-' }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Department
+                        </span>
+
+                        <strong>
+                            {{ student['department'] or '-' }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Semester
+                        </span>
+
+                        <strong>
+                            {{ student['semester'] or '-' }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Phone
+                        </span>
+
+                        <strong>
+                            {{ student['phone'] or '-' }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Email
+                        </span>
+
+                        <strong>
+                            {{ student['email'] or '-' }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- CURRENT BOOK COUNT -->
+
+                <div class="student-book-count">
+
+                    <span>
+                        Currently Issued Books
+                    </span>
+
+                    <strong>
+                        {{ student_books|length }}
+                    </strong>
+
+                    <small>
+                        / 3
+                    </small>
+
+                </div>
+
+
+                <!-- BOOKS TAKEN -->
+
+                {% if student_books %}
+
+                <h3 class="books-heading">
+
+                    📚 Books Taken by
+                    {{ student['name'] }}
+
+                </h3>
+
+
+                <div class="student-books-table">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    S.No
+                                </th>
+
+                                <th>
+                                    Book Name
+                                </th>
+
+                                <th>
+                                    Author
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Issue Date
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for book in student_books %}
+
+                            <tr>
+
+                                <td>
+                                    {{ loop.index }}
+                                </td>
+
+                                <td>
+                                    {{ book['title'] }}
+                                </td>
+
+                                <td>
+                                    {{ book['author'] }}
+                                </td>
+
+                                <td>
+                                    {{ book['category'] or '-' }}
+                                </td>
+
+                                <td>
+                                    {{ book['issue_date'] or '-' }}
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                {% else %}
+
+                <div class="no-books">
+
+                    This student has not taken any books currently.
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

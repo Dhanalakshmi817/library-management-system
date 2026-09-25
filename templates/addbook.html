@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.40),
+                    rgba(0, 0, 0, 0.40)),
+                url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        /* MAIN CARD */
+
+        .card {
+            width: 850px;
+            background: white;
+
+            border-radius: 8px;
+            overflow: hidden;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+
+            position: relative;
+        }
+
+
+        /* CLOSE BUTTON */
+
+        .close {
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            width: 40px;
+            height: 40px;
+
+            background: #e74c3c;
+            color: white;
+
+            border-radius: 50%;
+
+            text-align: center;
+            line-height: 40px;
+
+            text-decoration: none;
+
+            font-size: 26px;
+            font-weight: bold;
+
+            z-index: 10;
+        }
+
+        .close:hover {
+            background: #c0392b;
+        }
+
+
+        /* TITLE */
+
+        .title {
+            height: 105px;
+
+            background: #f3dfb0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 22px;
+        }
+
+        .book-icon {
+            font-size: 58px;
+        }
+
+        .title h1 {
+            margin: 0;
+
+            font-size: 30px;
+
+            color: #222;
+        }
+
+
+        /* MAIN AREA */
+
+        .main {
+            display: flex;
+
+            min-height: 450px;
+        }
+
+
+        /* LEFT QUOTATION */
+
+        .quote {
+            width: 42%;
+
+            background: #fffdf8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 35px;
+        }
+
+        .quote-box {
+            width: 100%;
+
+            padding: 20px 20px 25px;
+
+            border-left: 6px solid #e5a82d;
+
+            background: #fffaf0;
+
+            border-radius: 6px;
+
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-family: Georgia, serif;
+
+            font-size: 65px;
+
+            color: #e5a82d;
+
+            font-weight: bold;
+
+            line-height: 35px;
+
+            text-align: left;
+        }
+
+        .quote p {
+            font-family: Georgia, serif;
+
+            font-size: 24px;
+
+            line-height: 1.35;
+
+            color: #222;
+
+            margin: 20px 0;
+
+            font-style: italic;
+        }
+
+        .quote small {
+            display: block;
+
+            color: #8a6a32;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        /* RIGHT FORM */
+
+        .form {
+            width: 58%;
+
+            background: #f7c47c;
+
+            padding: 35px 40px;
+        }
+
+
+        /* FORM ROW */
+
+        .row {
+            display: flex;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .row label {
+            width: 175px;
+
+            font-size: 17px;
+
+            color: #222;
+
+            font-weight: bold;
+        }
+
+
+        .row input {
+            width: 235px;
+
+            height: 34px;
+
+            border: 1px solid #999;
+
+            border-radius: 3px;
+
+            padding: 6px 9px;
+
+            font-size: 14px;
+
+            background: white;
+        }
+
+
+        .row input:focus {
+            outline: none;
+
+            border: 2px solid #a86c0b;
+        }
+
+
+        /* BUTTONS */
+
+        .buttons {
+            text-align: center;
+
+            margin-top: 30px;
+        }
+
+
+        button {
+            padding: 10px 25px;
+
+            margin: 5px;
+
+            background: #ffe8bd;
+
+            border: 2px solid #a86c0b;
+
+            border-radius: 4px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #f5d18d;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .main {
+                flex-direction: column;
+            }
+
+            .quote,
+            .form {
+                width: 100%;
+            }
+
+            .quote {
+                min-height: 280px;
+            }
+
+            .row label {
+                width: 160px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="card">
+
+
+        <!-- CLOSE BUTTON -->
+
+        <a href="/dashboard" class="close">×</a>
+
+
+        <!-- TITLE -->
+
+        <div class="title">
+
+            <div class="book-icon">
+                📕
+            </div>
+
+            <h1>Add Book</h1>
+
+        </div>
+
+
+        <!-- MAIN -->
+
+        <div class="main">
+
+
+            <!-- LEFT QUOTATION -->
+
+            <div class="quote">
+
+                <div class="quote-box">
+
+                    <div class="quote-mark">
+                        “
+                    </div>
+
+                    <p>
+                        Every book is a new adventure
+                        <br>
+                        waiting to begin.
+                    </p>
+
+                    <small>
+                        — Library Collection
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT FORM -->
+
+            <div class="form">
+
+                <form method="POST" action="/addbook">
+
+
+                    <div class="row">
+
+                        <label>
+                            Book Name
+                        </label>
+
+                        <input type="text" name="title" placeholder="Enter book name" required>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <label>
+                            Author Name
+                        </label>
+
+                        <input type="text" name="author" placeholder="Enter author name" required>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <input type="text" name="category" placeholder="Enter category">
+
+                    </div>
+
+                    <div class="row">
+
+                        <label>
+                            Book Quantity
+                        </label>
+
+                        <input type="number" name="quantity" placeholder="Enter quantity" min="1" value="1" required>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="buttons">
+
+                        <button type="submit">
+                            Save
+                        </button>
+
+                        <button type="button" onclick="window.location.href='/dashboard'">
+                            Cancel
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
